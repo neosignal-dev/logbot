@@ -18,3 +18,7 @@ logs/
 # tools
 .vscode/
 .idea/
+.env
+.env.*
+*.env
+*.env.save
