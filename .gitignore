@@ -1,0 +1,20 @@
+# env & secrets
+.env
+*.env
+*.key
+*.pem
+
+# python
+__pycache__/
+*.pyc
+
+# docker volumes / runtime
+caddy/caddydata/
+caddy/caddyconfig/
+data/
+logs/
+*.db
+
+# tools
+.vscode/
+.idea/
