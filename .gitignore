@@ -1,4 +1,5 @@
 # env & secrets
+!.env.example
 .env
 *.env
 *.key
