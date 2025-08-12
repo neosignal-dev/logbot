@@ -1,0 +1,36 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: logbot-backend
+    env_file: [.env]
+    restart: unless-stopped
+
+  bot:
+    image: logbot-backend
+    env_file: [.env]
+    command: ["python","/app/appbot/bot.py"]
+    depends_on: [backend]
+    healthcheck:  # добавь это
+      test: ["CMD-SHELL","python - <<'PY'\nimport os,sys;print('ok');sys.exit(0)\nPY"]
+      interval: 30s
+      timeout: 3s
+      retries: 1
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddydata:/data
+      - caddyconfig:/config
+    depends_on: [backend]
+    restart: unless-stopped
+
+volumes:
+  caddydata:
+  caddyconfig:

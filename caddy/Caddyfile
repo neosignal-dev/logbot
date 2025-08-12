@@ -1,0 +1,7 @@
+http://localhost {
+  encode gzip
+  route /api* {
+    reverse_proxy backend:8000
+  }
+  respond /healthz 200
+}
